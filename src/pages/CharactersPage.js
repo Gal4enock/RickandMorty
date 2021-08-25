@@ -1,3 +1,4 @@
+// import Navigation from "../components/Navigation";
 
 const CharactersPage = function () {
   return (
