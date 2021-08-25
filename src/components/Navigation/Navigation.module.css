@@ -1,0 +1,11 @@
+.Navigation_link {
+  color: black;
+  margin-left: 20px;
+}
+.Navigation_link_active {
+  color: rgb(216, 120, 11);
+}
+.List {
+  list-style-type: none;
+  display: flex;
+}
