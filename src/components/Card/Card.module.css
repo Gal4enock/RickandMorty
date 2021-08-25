@@ -1,0 +1,28 @@
+* {
+  font-family: Roboto, sans-serif;
+}
+
+.CardWrapper {
+  display: flex;
+  width: auto;
+  margin-top: 30px;
+  /* justify-content: space-around; */
+}
+
+.About {
+  margin-top: -20px;
+  margin-left: 20px;
+  font-size: 15px;
+}
+
+.GenresBlock {
+  display: flex;
+}
+
+.Genres {
+  display: flex;
+  margin-right: 10px;
+}
+.OverviewBlock {
+  width: 400px;
+}
