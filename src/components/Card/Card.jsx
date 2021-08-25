@@ -1,27 +1,34 @@
 import React from 'react';
+import { Component } from 'react';
 
-import style from './Card.module.css'
+import style from './Card.module.css';
+import Modal from '../Modal/Modal.jsx';
 
 
-const Card = ({ obj, img }) => {
+class Card extends Component {
+  state = {
+   onModalOpen: false
+ }
 
-  return (
-    <div className={style.CardWrapper}>
-      <div>
-        <img className={style.Picture} width='400' height='300' src={img ? img: 'https://www.meme-arsenal.com/memes/334dedec90ef3de6cbef0f22e597798e.jpg'} alt="" />
+  modalToggle = () => {
+    this.state.onModalOpen ? this.setState({onModalOpen: false}) : this.setState({onModalOpen: true})
+  }
+  
+  render() {
+    const obj = this.props.obj;
+    return (
+      <div className={style.CardWrapper} onClick={this.modalToggle}>
+        <div >
+          <img className={style.Picture} width='400' height='300' src={obj.image ? obj.image: 'https://www.meme-arsenal.com/memes/334dedec90ef3de6cbef0f22e597798e.jpg'} alt="" />
+        <div className={style.About}>
+          <h2><span>{obj.name}</span>  ({obj.species})</h2>
+          <p>Origin: {obj.origin.name} </p>
+          </div>
+        </div>
+        {this.state.onModalOpen ? <Modal obj = {obj}/> : ''}
       </div>
-      <div className={style.About}>
-        <h2><span>{obj.title}</span>  ({obj.release_date.split("-")[0]})</h2>
-        <p>User Score: {+ obj.vote_average * 10}% </p>
-        <h3>Overview</h3>
-        <p className={style.OverviewBlock}>{obj.overview}</p>
-        <h3>Genres</h3>
-        <p className={style.GenresBlock}>
-        {obj.genres.map(el => <span className={style.Genres} key={el.id}>{el.name}</span>)}
-        </p>
-      </div>
-    </div>
-  )
+    )
+  }
 };
 
 

@@ -1,8 +1,8 @@
-// import Navigation from "../components/Navigation";
+import CharactersList from "../components/Gallery/Gallery.jsx";
 
 const CharactersPage = function () {
   return (
-    <div>CharactersPage</div>
+    <div><CharactersList/></div>
   )
 }
 

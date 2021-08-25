@@ -1,0 +1,21 @@
+* {
+  box-sizing: border-box;
+}
+.list {
+list-style: none;
+display: flex;
+flex-wrap: wrap;
+justify-content: space-around;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.pageNumber {
+  text-align: center;
+}
+.currentPage {
+  text-align: end;
+}

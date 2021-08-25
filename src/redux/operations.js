@@ -1,24 +1,32 @@
 import actions from './actions';
+import axios from 'axios';
 
-const URL = 'https://rickandmortyapi.com/api/';
+axios.defaults.baseURL = 'https://rickandmortyapi.com/api/';
 
-const fetchCharacters = (page=1) => (dispatch) => {
+const fetchCharacters = (page) => (dispatch) => {
   dispatch(actions.fetchCharactersRequest());
-  fetch(URL + `/character?page=${page}`)
-    .then(resp => resp.json)
-    .then(result => dispatch(actions.fetchCharactersSuccess(result)))
+  axios
+    .get(`/character?page=${page}`)
+    .then(result => dispatch(actions.fetchCharactersSuccess(result.data)))
+    // .then(resp => {
+    //  
+    //  return resp.json
+    // })
     .catch(err => dispatch(actions.fetchCharactersError(err)))
 }
 
-const fetchLocations = (page=1) => (dispatch) => {
+const fetchLocations = (page) => (dispatch) => {
   dispatch(actions.fetchLocationsRequest());
   fetch(URL + `/location?page=${page}`)
-    .then(resp => resp.json)
+    .then(resp => {
+      console.log(resp);
+     return resp.json
+    })
     .then(result => dispatch(actions.fetchLocationsSuccess(result)))
     .catch(err => dispatch(actions.fetchLocationsError(err)))
 }
 
-const fetchEpisodes = (page=1) => (dispatch) => {
+const fetchEpisodes = (page) => (dispatch) => {
   dispatch(actions.fetchEpisodesRequest());
   fetch(URL + `/episode?page=${page}`)
     .then(resp => resp.json)
