@@ -6,24 +6,36 @@ import { Button, ButtonGroup } from '@material-ui/core';
 import selector from '../../redux/selectors';
 import operations from '../../redux/operations';
 import Card from '../Card';
+import FilterField from '../FilterField/FilterField';
 import style from './Gallery.module.css'
 
 class CharactersList extends Component {
   state = {
-  page: 1
+    page: 1,
+    arrList: []
 }
 
   componentDidMount() {
     setTimeout(() => {
       console.log('iv done');
       this.props.toFetchCharacters(this.state.page)
-    }, 500) 
+    
+    }, 500)
+    
+    setTimeout(() => {
+    
+      this.setState({
+        arrList: this.props.charObj.results
+      }) 
+    }, 1000) 
 }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.page !== this.state.page) {
       this.props.toFetchCharacters(this.state.page)
-       console.log('no me');
+       this.setState({
+        arrList: this.props.charObj.results
+      })
     }
   }
   
@@ -39,11 +51,33 @@ class CharactersList extends Component {
     } else return
   }
 
+  filterByQuery = () => {
+
+  }
+
 
 render() {
-    const charArr = this.props.charObj.results;
+  const charArr = this.state.arrList
+  console.log('cccccc', charArr);
     return (
       <div onClick={this.showDetails}>
+        <div>
+          {/* <FilterField name='name' filterList={this.filterByQuery} /> */}
+          {/* <FilterField name='species' filterList={this.filterByQuery} /> */}
+          {/* <FilterField name='gender' filterList = {this.filterByQuery} /> */}
+          {/* <form action="submit">
+            <input type="text" name="name" />
+            <Button type="submit">filter by name</Button>
+          </form>
+          <form action="submit">
+            <input type="text" name="species" />
+            <button type="submit">filter by species</button>
+          </form>
+          <form action="submit">
+            <input type="text" name="gender" />
+            <button type="submit">filter by gender</button>
+          </form> */}
+        </div>
         <p className={style.currentPage}>your page is #{this.state.page }</p>
         <ul className={style.list}>{charArr ? charArr.map(char => <li key={char.id}><Card obj={char} /></li>) : 'ooops'}</ul>
           <div className={style.buttons}>
@@ -61,12 +95,12 @@ render() {
 
 const mapStateToProps = state => ({
   charObj: selector.getCharacters(state),
-  date: state.date,
 });
 
 const mapDispatchToProps = dispath => {
   return {
-    toFetchCharacters: page => dispath(operations.fetchCharacters(page))
+    toFetchCharacters: page => dispath(operations.fetchCharacters(page)),
+    toFilterCharacters: (key, query) => dispath(operations.filterCharacters(key, query))
   }
 }
 export default connect (mapStateToProps, mapDispatchToProps) (CharactersList)

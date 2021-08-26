@@ -23,6 +23,7 @@ class Card extends Component {
         <div className={style.About}>
           <h2><span>{obj.name}</span>  ({obj.species})</h2>
           <p>Origin: {obj.origin.name} </p>
+          <p>Gender: {obj.gender} </p>
           </div>
         </div>
         {this.state.onModalOpen ? <Modal obj = {obj}/> : ''}

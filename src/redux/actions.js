@@ -4,6 +4,10 @@ const fetchCharactersRequest = createAction('characters/fetchRequest');
 const fetchCharactersSuccess = createAction('characters/fetchSuccess');
 const fetchCharactersError = createAction('characters/fetchError');
 
+const filterCharactersRequest = createAction('filter/fetchRequest');
+const filterCharactersSuccess = createAction('filter/fetchSuccess');
+const filterCharactersError = createAction('filter/fetchError');
+
 const fetchEposidesRequest = createAction('eposides/fetchRequest');
 const fetchEposidesSuccess = createAction('eposides/fetchSuccess');
 const fetchEposidesError = createAction('eposides/fetchError');
@@ -29,6 +33,9 @@ export default {
   fetchLocationsError,
   fetchAddToWatchListRequest,
   fetchAddToWatchListSuccess,
-  fetchAddToWatchListError
+  fetchAddToWatchListError,
+  filterCharactersRequest,
+  filterCharactersSuccess,
+  filterCharactersError
 }
 

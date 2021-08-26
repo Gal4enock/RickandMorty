@@ -1,7 +1,8 @@
 import actions from './actions';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://rickandmortyapi.com/api/';
+axios.defaults.baseURL = 'https://rickandmortyapi.com/api';
+const URL = 'https://rickandmortyapi.com/api'
 
 const fetchCharacters = (page) => (dispatch) => {
   dispatch(actions.fetchCharactersRequest());
@@ -13,6 +14,14 @@ const fetchCharacters = (page) => (dispatch) => {
     //  return resp.json
     // })
     .catch(err => dispatch(actions.fetchCharactersError(err)))
+}
+
+const filterCharacters = (key, query) => (dispatch) => {
+  dispatch(actions.filterCharactersRequest());
+  fetch(URL + `/character/?${key}=${query}`)
+    .then(res => res.json())
+    .then(result => dispatch(actions.filterCharactersSuccess(result.data)))
+    .catch(err => dispatch(actions.filterCharactersError(err)))
 }
 
 const fetchLocations = (page) => (dispatch) => {
@@ -47,5 +56,6 @@ export default {
   fetchCharacters,
   fetchLocations,
   fetchEpisodes,
-  fetchAddToWatchList
+  fetchAddToWatchList,
+  filterCharacters
 }

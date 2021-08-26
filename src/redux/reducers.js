@@ -4,7 +4,8 @@ import actions from './actions';
 const characters = createReducer(
   {},
   {
-    [actions.fetchCharactersSuccess]: (state, { payload }) => payload
+    [actions.fetchCharactersSuccess]: (state, { payload }) => payload,
+    [actions.filterCharactersSuccess]: (state, { payload }) => payload
   }
 )
 
