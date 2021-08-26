@@ -23,22 +23,32 @@ class CharactersList extends Component {
     }, 500)
     
     setTimeout(() => {
-    
       this.setState({
         arrList: this.props.charObj.results
       }) 
-    }, 1000) 
+    }, 600) 
 }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.page !== this.state.page) {
       this.props.toFetchCharacters(this.state.page)
-       this.setState({
-        arrList: this.props.charObj.results
-      })
+      setTimeout(() => {
+        
+        this.setState({
+          arrList: this.props.charObj.results
+        })
+    }, 50)
     }
   }
-  
+  restart = () => {
+   this.props.toFetchCharacters(this.state.page)
+    setTimeout(() => {
+      this.setState({
+        arrList: this.props.charObj.results
+      }) 
+    }, 600)
+  }
+
   goNext = () => {
     this.setState({ page: this.state.page + 1 })
     document.documentElement.scrollTop = 0;
@@ -51,35 +61,35 @@ class CharactersList extends Component {
     } else return
   }
 
-  filterByQuery = () => {
-
+  filterByQuery = (e) => {
+    e.preventDefault();
+    const key = e.target.name;
+    const query = e.target[0].value
+    this.props.toFilterCharacters(key, query)
+    setTimeout(() => {
+      this.setState({arrList: this.props.charObj ? this.props.charObj : 'sorry, try again'})
+      e.target[0].value = ''
+      console.log('this.state.arrList', this.state.arrList);
+      console.log('key', key);
+    },50)
   }
 
 
 render() {
   const charArr = this.state.arrList
-  console.log('cccccc', charArr);
+  console.log('cccccc', charArr); 
     return (
       <div onClick={this.showDetails}>
-        <div>
-          {/* <FilterField name='name' filterList={this.filterByQuery} /> */}
-          {/* <FilterField name='species' filterList={this.filterByQuery} /> */}
-          {/* <FilterField name='gender' filterList = {this.filterByQuery} /> */}
-          {/* <form action="submit">
-            <input type="text" name="name" />
-            <Button type="submit">filter by name</Button>
-          </form>
-          <form action="submit">
-            <input type="text" name="species" />
-            <button type="submit">filter by species</button>
-          </form>
-          <form action="submit">
-            <input type="text" name="gender" />
-            <button type="submit">filter by gender</button>
-          </form> */}
+        <div >
+          <div className={style.filterForm}>
+            <FilterField name='name' filterList={this.filterByQuery} />
+            <FilterField name='species' filterList={this.filterByQuery} />
+            <FilterField name='gender' filterList={this.filterByQuery} />
+          </div>
+          <Button onClick = {this.restart}  variant="contained">Back to normal</Button>
         </div>
         <p className={style.currentPage}>your page is #{this.state.page }</p>
-        <ul className={style.list}>{charArr ? charArr.map(char => <li key={char.id}><Card obj={char} /></li>) : 'ooops'}</ul>
+        <ul className={style.list}>{charArr && charArr.length > 0 ? charArr.map(char => <li key={char.id}><Card obj={char} /></li>) : 'please wait or try again'}</ul>
           <div className={style.buttons}>
         <ButtonGroup disableElevation variant="contained" color="primary" >
           <Button onClick={this.goPrevious}>&laquo;</Button>

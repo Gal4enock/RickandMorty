@@ -17,10 +17,14 @@ const fetchCharacters = (page) => (dispatch) => {
 }
 
 const filterCharacters = (key, query) => (dispatch) => {
+  console.log('dada');
   dispatch(actions.filterCharactersRequest());
   fetch(URL + `/character/?${key}=${query}`)
     .then(res => res.json())
-    .then(result => dispatch(actions.filterCharactersSuccess(result.data)))
+    .then(result => {
+      console.log('result', result.results);
+      dispatch(actions.filterCharactersSuccess(result.results))
+    })
     .catch(err => dispatch(actions.filterCharactersError(err)))
 }
 
