@@ -8,9 +8,9 @@ const filterCharactersRequest = createAction('filter/fetchRequest');
 const filterCharactersSuccess = createAction('filter/fetchSuccess');
 const filterCharactersError = createAction('filter/fetchError');
 
-const fetchEposidesRequest = createAction('eposides/fetchRequest');
-const fetchEposidesSuccess = createAction('eposides/fetchSuccess');
-const fetchEposidesError = createAction('eposides/fetchError');
+const fetchEpisodesRequest = createAction('episodes/fetchRequest');
+const fetchEpisodesSuccess = createAction('episodes/fetchSuccess');
+const fetchEpisodesError = createAction('episodes/fetchError');
 
 const fetchLocationsRequest = createAction('locations/fetchRequest');
 const fetchLocationsSuccess = createAction('locations/fetchSuccess');
@@ -25,9 +25,9 @@ export default {
   fetchCharactersRequest,
   fetchCharactersSuccess,
   fetchCharactersError,
-  fetchEposidesRequest,
-  fetchEposidesSuccess,
-  fetchEposidesError,
+  fetchEpisodesSuccess,
+  fetchEpisodesRequest,
+  fetchEpisodesError,
   fetchLocationsRequest,
   fetchLocationsSuccess,
   fetchLocationsError,

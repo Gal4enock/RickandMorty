@@ -43,7 +43,7 @@ const fetchEpisodes = (page) => (dispatch) => {
   dispatch(actions.fetchEpisodesRequest());
   fetch(URL + `/episode?page=${page}`)
     .then(resp => resp.json)
-    .then(result => dispatch(actions.fetchEpisodesSuccess(result)))
+    .then(result => dispatch(actions.fetchEpisodesSuccess(result.data)))
     .catch(err => dispatch(actions.fetchEpisodesError(err)))
 }
 

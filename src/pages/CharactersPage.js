@@ -1,4 +1,4 @@
-import CharactersList from "../components/Gallery/Gallery.jsx";
+import CharactersList from "../components/CharactersList/CharactersList.jsx";
 
 const CharactersPage = function () {
   return (

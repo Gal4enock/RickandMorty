@@ -7,7 +7,7 @@ import selector from '../../redux/selectors';
 import operations from '../../redux/operations';
 import Card from '../Card';
 import FilterField from '../FilterField/FilterField';
-import style from './Gallery.module.css'
+import style from './CharactersList.module.css'
 
 class CharactersList extends Component {
   state = {
@@ -77,7 +77,6 @@ class CharactersList extends Component {
 
 render() {
   const charArr = this.state.arrList
-  console.log('cccccc', charArr); 
     return (
       <div onClick={this.showDetails}>
         <div >
