@@ -28,7 +28,7 @@ const locations = createReducer(
 const watchList = createReducer(
   {},
   {
-    [actions.fetchAddToWatchListSuccess]: (state, { payload }) => ({...state, payload})
+    [actions.fetchAddToWatchListSuccess]: (state, { payload }) => payload
   }
 )
 

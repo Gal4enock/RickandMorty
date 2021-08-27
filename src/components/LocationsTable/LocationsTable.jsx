@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Button } from '@material-ui/core';
 import selector from '../../redux/selectors';
 import operations from '../../redux/operations';
 import TableRow from '../../shared/TableRow/TableRow';
@@ -65,9 +66,17 @@ class LocationsTable extends Component {
     },50)
   }
 
+  restart = () => {
+   this.props.toFetchLocations(this.state.page)
+    setTimeout(() => {
+      this.setState({
+        arrList: this.props.locObj
+      }) 
+    }, 600)
+  }
+
   render() {
     const locArr = this.state.arrList
-    // console.log("episodesList", episArr);
     return (
       <div className={style.background}>
         <div className={style.filterForm}>
@@ -75,6 +84,7 @@ class LocationsTable extends Component {
             <FilterField name='type' filterList={this.filterByQuery} />
             <FilterField name='dimension' filterList={this.filterByQuery} />
         </div>
+        <Button onClick = {this.restart}  variant="contained">Clear Filters</Button>
         <p className={style.currentPage}>your page is #{this.state.page }</p>
         <table className={style.table}>
           <tr  key='9678'>

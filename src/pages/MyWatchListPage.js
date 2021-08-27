@@ -1,8 +1,8 @@
-
+import MyWatchList from '../components/MyWatchList/MyWatchList.jsx';
 
 const MyWatchListPage = function () {
   return (
-    <div>MyWatchListPage</div>
+    <div><MyWatchList/></div>
   )
 }
 

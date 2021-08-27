@@ -68,11 +68,11 @@ const filterEpisodes = (key, query) => (dispatch) => {
     .catch(err => dispatch(actions.filterEpisodesError(err)))
 }
 
-const fetchAddToWatchList = (name) => (dispatch) => {
+const fetchAddToWatchList = (query) => (dispatch) => {
   dispatch(actions.fetchAddToWatchListRequest());
-  fetch(URL + `/episode?name=${name}`)
-    .then(resp => resp.json)
-    .then(result => dispatch(actions.fetchAddToWatchListSuccess(result)))
+  fetch(URL + `/episode?episode=${query}`)
+    .then(resp => resp.json())
+    .then(result => dispatch(actions.fetchAddToWatchListSuccess(result.results)))
     .catch(err => dispatch(actions.fetchAddToWatchListError(err)))
 }
 
