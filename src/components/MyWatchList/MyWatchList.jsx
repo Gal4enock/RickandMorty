@@ -65,6 +65,10 @@ class MyWatchList extends Component {
        },50)
   }
 
+  handleDelete(e) {
+    console.log('event', e);
+  }
+
   render() {
     const watchArr = this.state.arrList[0]
    
@@ -102,11 +106,11 @@ class MyWatchList extends Component {
             <th key={uuidv4()} className={style.row}>Name</th>
             <th key={uuidv4()} className={style.row}>Air date</th>
             <th key={uuidv4()} className={style.row}>Episode</th>
-            <th key={uuidv4()} className={style.row}>Want to watch later?</th>
+            <th key={uuidv4()} className={style.row}>Watched / delete from list</th>
           </tr>
           {
             savedList && savedList.length > 0 ?
-              savedList.map(el => <MyWatchListRow obj={el} handleSubmit={this.handleSubmit} cheked={this.state.rememberMe}/> )
+              savedList.map(el => <MyWatchListRow obj={el} handleSubmit={this.handleSubmit} cheked={this.state.rememberMe} deleteFromList={this.handleDelete }/> )
               :
             <tr key={uuidv4()}>
               <td key={uuidv4()} className={style.row}>You have nothing to watch</td>
