@@ -1,7 +1,8 @@
+import LocationsTable from '../components/LocationsTable/LocationsTable.jsx';
 
 const LocationsPage = function () {
   return (
-    <div>LocationsPage</div>
+    <div><LocationsTable/></div>
   )
 }
 

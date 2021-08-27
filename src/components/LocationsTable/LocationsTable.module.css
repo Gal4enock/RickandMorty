@@ -1,0 +1,36 @@
+.background{
+  background-image: url('../../img/e2fb0b2ac9b7e82275eacc8c2ee9c846.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+ 
+}
+
+.table {
+    border: 1px solid black;  /* граница всей таблицы */
+    border-collapse: collapse;
+    margin: 0 auto;
+    background-color: rgba(248, 248, 228, 0.5);
+}
+
+.row {
+  border:  2px solid black;
+}
+
+.pageNumber {
+  text-align: center;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  
+}
+
+.currentPage {
+  text-align: end;
+}
+
+.filterForm {
+  display: flex;
+}

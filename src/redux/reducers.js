@@ -12,14 +12,16 @@ const characters = createReducer(
 const episodes = createReducer(
   {},
   {
-    [actions.fetchEpisodesSuccess]: (state, { payload }) => payload
+    [actions.fetchEpisodesSuccess]: (state, { payload }) => payload,
+    [actions.filterEpisodesSuccess]: (state, { payload }) => payload
   }
 )
 
 const locations = createReducer(
   {},
   {
-    [actions.fetchLocationsSuccess]: (state, { payload }) => payload
+    [actions.fetchLocationsSuccess]: (state, { payload }) => payload,
+    [actions.filterLocationsSuccess]: (state, { payload }) => payload
   }
 )
 

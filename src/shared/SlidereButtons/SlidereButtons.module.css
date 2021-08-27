@@ -1,0 +1,15 @@
+* {
+  box-sizing: border-box;
+}
+
+.pageNumber {
+  text-align: center;
+  color: bisque
+  
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}

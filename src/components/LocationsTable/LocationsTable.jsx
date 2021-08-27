@@ -5,9 +5,9 @@ import operations from '../../redux/operations';
 import TableRow from '../../shared/TableRow/TableRow';
 import SliderBurrons from '../../shared/SlidereButtons/SlidereButtons';
 import FilterField from '../FilterField/FilterField';
-import style from './EpisodesTable.module.css'
+import style from './LocationsTable.module.css'
 
-class EpisodesTable extends Component {
+class LocationsTable extends Component {
   state = {
     page: 1,
     arrList: []
@@ -16,13 +16,13 @@ class EpisodesTable extends Component {
   componentDidMount() {
     setTimeout(() => {
       console.log('iv done');
-      this.props.toFetchEpisodes(this.state.page)
+      this.props.toFetchLocations(this.state.page)
     
     }, 500)
     
     setTimeout(() => {
       this.setState({
-        arrList: this.props.episObj
+        arrList: this.props.locObj
       })
       console.log("mounted",this.state.arrList);
     }, 600) 
@@ -30,11 +30,11 @@ class EpisodesTable extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.page !== this.state.page) {
-      this.props.toFetchEpisodes(this.state.page)
+      this.props.toFetchLocations(this.state.page)
       setTimeout(() => {
         
         this.setState({
-          arrList: this.props.episObj
+          arrList: this.props.locObj
         })
     }, 50)
     }
@@ -56,9 +56,9 @@ class EpisodesTable extends Component {
     e.preventDefault();
     const key = e.target.name;
     const query = e.target[0].value
-    this.props.toFilterEpisodes(key, query)
+    this.props.toFilterLocations(key, query)
     setTimeout(() => {
-      this.setState({arrList: this.props.episObj ? this.props.episObj : 'sorry, try again'})
+      this.setState({arrList: this.props.locObj ? this.props.locObj : 'sorry, try again'})
       e.target[0].value = ''
       console.log('this.state.arrList', this.state.arrList);
       console.log('key', key);
@@ -66,19 +66,23 @@ class EpisodesTable extends Component {
   }
 
   render() {
-    const episArr = this.state.arrList
-    console.log("episodesList", episArr);
+    const locArr = this.state.arrList
+    // console.log("episodesList", episArr);
     return (
       <div className={style.background}>
-        <FilterField name='name' filterList={this.filterByQuery} />
+        <div className={style.filterForm}>
+            <FilterField name='name' filterList={this.filterByQuery} />
+            <FilterField name='type' filterList={this.filterByQuery} />
+            <FilterField name='dimension' filterList={this.filterByQuery} />
+        </div>
         <p className={style.currentPage}>your page is #{this.state.page }</p>
         <table className={style.table}>
           <tr  key='9678'>
             <th key='name' className={style.row}>Name</th>
-            <th key='date' className={style.row}>Air date</th>
-            <th key='episode' className={style.row}>Episode</th>
+            <th key='type' className={style.row}>Type</th>
+            <th key='dimension' className={style.row}>Dimension</th>
           </tr>
-          {episArr && episArr.length > 0 ? episArr.map(epis => <TableRow obj = {epis}/>) : 'please wait or try again'}
+          {locArr && locArr.length > 0 ? locArr.map(locate => <TableRow obj = {locate}/>) : 'please wait or try again'}
         </table>
         <SliderBurrons goPrevious={this.goPrevious} goNext={this.goNext} page={this.state.page}/>
         </div>
@@ -87,13 +91,13 @@ class EpisodesTable extends Component {
 }
 
 const mapStateToProps = state => ({
-  episObj: selector.getEpisodes(state),
+  locObj: selector.getLocations(state),
 });
 
 const mapDispatchToProps = dispath => {
   return {
-    toFetchEpisodes: page => dispath(operations.fetchEpisodes(page)),
-    toFilterEpisodes: (key, query) => dispath(operations.filterEpisodes(key, query))
+    toFetchLocations: page => dispath(operations.fetchLocations(page)),
+    toFilterLocations: (key, query) => dispath(operations.filterLocations(key, query))
   }
 }
-export default connect (mapStateToProps, mapDispatchToProps) (EpisodesTable)
+export default connect (mapStateToProps, mapDispatchToProps) (LocationsTable)

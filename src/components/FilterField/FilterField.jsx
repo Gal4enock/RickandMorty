@@ -6,7 +6,7 @@ const FilterField = ({name, filterList, toChange}) => {
   return(
     <form name={name} action="submit"  onSubmit={filterList} className={style.form}>
       <input type="text" className={style.filterInput }/>
-      <Button variant="outlined" type="submit">filter by {name}</Button>
+      <Button variant="contained" type="submit">filter by {name}</Button>
     </form>
   )
 }

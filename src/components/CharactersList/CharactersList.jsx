@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, ButtonGroup } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
-
+import SliderBurrons from '../../shared/SlidereButtons/SlidereButtons';
 import selector from '../../redux/selectors';
 import operations from '../../redux/operations';
 import Card from '../Card';
@@ -78,24 +78,18 @@ class CharactersList extends Component {
 render() {
   const charArr = this.state.arrList
     return (
-      <div onClick={this.showDetails}>
+      <div className={ style.background} onClick={this.showDetails}>
         <div >
           <div className={style.filterForm}>
             <FilterField name='name' filterList={this.filterByQuery} />
             <FilterField name='species' filterList={this.filterByQuery} />
             <FilterField name='gender' filterList={this.filterByQuery} />
           </div>
-          <Button onClick = {this.restart}  variant="contained">Back to normal</Button>
+          <Button onClick = {this.restart}  variant="contained">Clear Filters</Button>
         </div>
         <p className={style.currentPage}>your page is #{this.state.page }</p>
         <ul className={style.list}>{charArr && charArr.length > 0 ? charArr.map(char => <li key={char.id}><Card obj={char} /></li>) : 'please wait or try again'}</ul>
-          <div className={style.buttons}>
-        <ButtonGroup disableElevation variant="contained" color="primary" >
-          <Button onClick={this.goPrevious}>&laquo;</Button>
-          <p className={style.pageNumber}>{ this.state.page}</p>
-            <Button onClick={this.goNext}> &raquo; </Button>
-        </ButtonGroup>
-        </div>
+        <SliderBurrons goPrevious={this.goPrevious} goNext={this.goNext} page={this.state.page}/>
       </div>
     )
   }

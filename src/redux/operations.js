@@ -17,7 +17,6 @@ const fetchCharacters = (page) => (dispatch) => {
 }
 
 const filterCharacters = (key, query) => (dispatch) => {
-  console.log('dada');
   dispatch(actions.filterCharactersRequest());
   fetch(URL + `/character/?${key}=${query}`)
     .then(res => res.json())
@@ -31,20 +30,42 @@ const filterCharacters = (key, query) => (dispatch) => {
 const fetchLocations = (page) => (dispatch) => {
   dispatch(actions.fetchLocationsRequest());
   fetch(URL + `/location?page=${page}`)
-    .then(resp => {
-      console.log(resp);
-     return resp.json
-    })
-    .then(result => dispatch(actions.fetchLocationsSuccess(result)))
+    .then(resp => {return resp.json()})
+    .then(result => dispatch(actions.fetchLocationsSuccess(result.results)))
     .catch(err => dispatch(actions.fetchLocationsError(err)))
+}
+
+const filterLocations = (key, query) => (dispatch) => {
+  dispatch(actions.filterLocationsRequest());
+  fetch(URL + `/location/?${key}=${query}`)
+    .then(res => res.json())
+    .then(result => {
+      console.log('result epis', result.results);
+      dispatch(actions.filterLocationsSuccess(result.results))
+    })
+    .catch(err => dispatch(actions.filterLocationsError(err)))
 }
 
 const fetchEpisodes = (page) => (dispatch) => {
   dispatch(actions.fetchEpisodesRequest());
   fetch(URL + `/episode?page=${page}`)
-    .then(resp => resp.json)
-    .then(result => dispatch(actions.fetchEpisodesSuccess(result.data)))
+    .then(resp => resp.json())  
+    .then(result => {
+      console.log('wtf2', result.results);
+      dispatch(actions.fetchEpisodesSuccess(result.results))
+    })
     .catch(err => dispatch(actions.fetchEpisodesError(err)))
+}
+
+const filterEpisodes = (key, query) => (dispatch) => {
+  dispatch(actions.filterEpisodesRequest());
+  fetch(URL + `/episode/?${key}=${query}`)
+    .then(res => res.json())
+    .then(result => {
+      console.log('result epis', result.results);
+      dispatch(actions.filterEpisodesSuccess(result.results))
+    })
+    .catch(err => dispatch(actions.filterEpisodesError(err)))
 }
 
 const fetchAddToWatchList = (name) => (dispatch) => {
@@ -61,5 +82,7 @@ export default {
   fetchLocations,
   fetchEpisodes,
   fetchAddToWatchList,
-  filterCharacters
+  filterCharacters,
+  filterEpisodes,
+  filterLocations
 }

@@ -8,6 +8,13 @@ flex-wrap: wrap;
 justify-content: space-around;
 }
 
+.background {
+  background-image: url('../../img/6ba92ae3e9952ea16ccfee7576237ca1.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 .buttons {
   display: flex;
   justify-content: center;
