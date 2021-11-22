@@ -16,37 +16,19 @@ class CharactersList extends Component {
 }
 
   componentDidMount() {
-    setTimeout(() => {
-      console.log('iv done');
-      this.props.toFetchCharacters(this.state.page)
-    
-    }, 500)
-    
-    setTimeout(() => {
-      this.setState({
-        arrList: this.props.charObj.results
-      }) 
-    }, 600) 
+   this.props.toFetchCharacters(this.state.page);
+
 }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.page !== this.state.page) {
       this.props.toFetchCharacters(this.state.page)
-      setTimeout(() => {
-        
-        this.setState({
-          arrList: this.props.charObj.results
-        })
-    }, 50)
     }
+    console.log('object', this.props.charObj);
+    
   }
   restart = () => {
    this.props.toFetchCharacters(this.state.page)
-    setTimeout(() => {
-      this.setState({
-        arrList: this.props.charObj.results
-      }) 
-    }, 600)
   }
 
   goNext = () => {
@@ -75,8 +57,8 @@ class CharactersList extends Component {
   }
 
 
-render() {
-  const charArr = this.state.arrList
+  render() {
+  const charArr = this.props.charObj.results
     return (
       <div className={ style.background} onClick={this.showDetails}>
         <div >

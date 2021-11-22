@@ -25,6 +25,7 @@ justify-content: space-around;
 }
 .currentPage {
   text-align: end;
+  margin-right: 20px;
 }
 
 .filterForm {

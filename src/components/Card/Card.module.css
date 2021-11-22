@@ -15,6 +15,8 @@
   margin-left: 20px;
   font-size: 15px;
   max-width: 400px;
+  color: black;
+  -webkit-text-stroke: 0.5px rgb(5, 5, 199);
 }
 
 .GenresBlock {
