@@ -12,7 +12,9 @@ import style from './CharactersList.module.css'
 class CharactersList extends Component {
   state = {
     page: 1,
-    arrList: []
+    filtered: false,
+    query: '',
+    key: '',
 }
 
   componentDidMount() {
@@ -22,13 +24,21 @@ class CharactersList extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.page !== this.state.page) {
-      this.props.toFetchCharacters(this.state.page)
+      this.state.filtered ?
+        this.props.toFilterCharacters(this.state.page, this.state.key, this.state.query) :
+        this.props.toFetchCharacters(this.state.page);
     }
-    console.log('object', this.props.charObj);
+    console.log("state", this.state);
     
   }
   restart = () => {
-   this.props.toFetchCharacters(this.state.page)
+    this.setState({
+      page: 1,
+      filtered: false,
+      query: '',
+      key: '',
+    });
+    this.props.toFetchCharacters(this.state.page);
   }
 
   goNext = () => {
@@ -45,20 +55,19 @@ class CharactersList extends Component {
 
   filterByQuery = (e) => {
     e.preventDefault();
+    this.setState({ page: 1 });
     const key = e.target.name;
-    const query = e.target[0].value
-    this.props.toFilterCharacters(key, query)
-    setTimeout(() => {
-      this.setState({arrList: this.props.charObj ? this.props.charObj : 'sorry, try again'})
-      e.target[0].value = ''
-      console.log('this.state.arrList', this.state.arrList);
-      console.log('key', key);
-    },50)
+    const query = e.target[0].value;
+    const page = this.state.page;
+    this.props.toFilterCharacters(page, key, query);
+    this.setState({ filtered: true });
+    this.setState({ query });
+    this.setState({ key });
+    e.target[0].value = '';
   }
 
-
   render() {
-  const charArr = this.props.charObj.results
+    const charArr = this.props.charObj;
     return (
       <div className={ style.background} onClick={this.showDetails}>
         <div >
@@ -67,7 +76,9 @@ class CharactersList extends Component {
             <FilterField name='species' filterList={this.filterByQuery} />
             <FilterField name='gender' filterList={this.filterByQuery} />
           </div>
-          <Button onClick = {this.restart}  variant="contained">Clear Filters</Button>
+          <Button onClick={this.restart} variant="contained">Clear Filters</Button>
+          {this.state.filtered ?
+            <span>  List filtered by {this.state.key} = {this.state.query} </span> : ''}
         </div>
         <p className={style.currentPage}>your page is #{this.state.page }</p>
         <ul className={style.list}>{charArr && charArr.length > 0 ? charArr.map(char => <li key={char.id}><Card obj={char} /></li>) : 'please wait or try again'}</ul>
@@ -85,7 +96,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispath => {
   return {
     toFetchCharacters: page => dispath(operations.fetchCharacters(page)),
-    toFilterCharacters: (key, query) => dispath(operations.filterCharacters(key, query))
+    toFilterCharacters: (page, key, query) => dispath(operations.filterCharacters(page, key, query))
   }
 }
 export default connect (mapStateToProps, mapDispatchToProps) (CharactersList)

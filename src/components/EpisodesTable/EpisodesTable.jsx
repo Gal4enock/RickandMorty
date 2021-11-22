@@ -10,33 +10,16 @@ import style from './EpisodesTable.module.css'
 class EpisodesTable extends Component {
   state = {
     page: 1,
-    arrList: []
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      console.log('iv done');
-      this.props.toFetchEpisodes(this.state.page)
-    
-    }, 500)
-    
-    setTimeout(() => {
-      this.setState({
-        arrList: this.props.episObj
-      })
-      console.log("mounted",this.state.arrList);
-    }, 600) 
+    this.props.toFetchEpisodes(this.state.page)
+
 }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.page !== this.state.page) {
       this.props.toFetchEpisodes(this.state.page)
-      setTimeout(() => {
-        
-        this.setState({
-          arrList: this.props.episObj
-        })
-    }, 50)
     }
   }
 
@@ -66,8 +49,7 @@ class EpisodesTable extends Component {
   }
 
   render() {
-    const episArr = this.state.arrList
-    console.log("episodesList", episArr);
+    const episArr = this.props.episObj
     return (
       <div className={style.background}>
         <FilterField name='name' filterList={this.filterByQuery} />

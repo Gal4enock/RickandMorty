@@ -8,7 +8,7 @@ const fetchCharacters = (page) => (dispatch) => {
   dispatch(actions.fetchCharactersRequest());
   axios
     .get(`/character?page=${page}`)
-    .then(result => dispatch(actions.fetchCharactersSuccess(result.data)))
+    .then(result => dispatch(actions.fetchCharactersSuccess(result.data.results)))
     // .then(resp => {
     //  
     //  return resp.json
@@ -16,9 +16,10 @@ const fetchCharacters = (page) => (dispatch) => {
     .catch(err => dispatch(actions.fetchCharactersError(err)))
 }
 
-const filterCharacters = (key, query) => (dispatch) => {
+const filterCharacters = (page, key, query) => (dispatch) => {
+  console.log('oper', query);
   dispatch(actions.filterCharactersRequest());
-  fetch(URL + `/character/?${key}=${query}`)
+  fetch(URL + `/character/?page=${page}&${key}=${query}`)
     .then(res => res.json())
     .then(result => {
       console.log('result', result.results);
