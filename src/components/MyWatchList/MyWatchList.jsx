@@ -41,7 +41,7 @@ class MyWatchList extends Component {
         episodes: newArr
       })
     } else {
-      const watchArr = this.state.arrList
+      const watchArr = this.props.watchObj[0];
       console.log("watchArr if no local", watchArr);
        this.setState({
         episodes: watchArr
@@ -59,65 +59,70 @@ class MyWatchList extends Component {
     e.preventDefault();
     const query = e.target[0].value
     this.props.toFindeToWatch(query)
-    setTimeout(() => {
-      this.setState({arrList: this.props.watchObj ? this.props.watchObj : 'sorry, try again'})
-      e.target[0].value = ''
-       },50)
   }
-
+  
   handleDelete(e) {
     console.log('event', e);
   }
-
+  
   render() {
-    const watchArr = this.state.arrList[0]
-   
+    const watchArr = this.props.watchObj[0];
     const savedList = JSON.parse(localStorage.getItem('watchList'));
 
     return (
       <div>
         <FilterField name='episode' filterList={this.filterByQuery} />
          <table className={style.table}>
-          <tr  key={uuidv4()}>
+          <thead key={uuidv4()}>
+            <tr>
             <th key={uuidv4()} className={style.row}>Name</th>
             <th key={uuidv4()} className={style.row}>Air date</th>
             <th key={uuidv4()} className={style.row}>Episode</th>
             <th key={uuidv4()} className={style.row}>Want to watch later?</th>
-          </tr>
+            </tr>
+          </thead>
           {
             watchArr ?
-            <tr key={uuidv4()}>
+            <tbody key={uuidv4()}>
+              <tr>
               <td key={uuidv4()} className={style.row}>{ watchArr.name}</td>
               <td key={uuidv4()} className={style.row}>{ watchArr.air_date}</td>
               <td key={uuidv4()} className={style.row}>{watchArr.episode}</td>
               <td key={uuidv4()} className={style.row}><Button onClick={this.handleSubmit} variant="contained">Add to Watch List</Button></td>
-          </tr>
+              </tr>
+          </tbody> 
               :
-            <tr key={uuidv4()}>
+              <tbody key={uuidv4()}>
+                <tr>
               <td key={uuidv4()} className={style.row}>You have nothing to choose</td>
               <td key={uuidv4()} className={style.row}>You have nothing to choose</td>
               <td key={uuidv4()} className={style.row}>You have nothing to choose</td>
               <td key={uuidv4()} className={style.row}><Button variant="contained">Add to Watch List</Button></td>
-          </tr>
+              </tr>
+          </tbody>
         }
         </table>
         <table className={style.table}>
-          <tr  key={uuidv4()}>
+          <thead key={uuidv4()}>
+            <tr>
             <th key={uuidv4()} className={style.row}>Name</th>
             <th key={uuidv4()} className={style.row}>Air date</th>
             <th key={uuidv4()} className={style.row}>Episode</th>
             <th key={uuidv4()} className={style.row}>Watched / delete from list</th>
-          </tr>
+            </tr>
+          </thead>
           {
             savedList && savedList.length > 0 ?
               savedList.map(el => <MyWatchListRow obj={el} handleSubmit={this.handleSubmit} cheked={this.state.rememberMe} deleteFromList={this.handleDelete }/> )
               :
-            <tr key={uuidv4()}>
+              <tbody key={uuidv4()}>
+                <tr>
               <td key={uuidv4()} className={style.row}>You have nothing to watch</td>
               <td key={uuidv4()} className={style.row}>You have nothing to watch</td>
               <td key={uuidv4()} className={style.row}>You have nothing to watch</td>
               <td key={uuidv4()} className={style.row}><input name="rememberMe" checked={this.state.rememberMe} onChange={this.handleChange} type="checkbox"/></td>
-          </tr>
+              </tr>
+          </tbody>
         }
         </table>
       </div>

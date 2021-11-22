@@ -40,12 +40,6 @@ class EpisodesTable extends Component {
     const key = e.target.name;
     const query = e.target[0].value
     this.props.toFilterEpisodes(key, query)
-    setTimeout(() => {
-      this.setState({arrList: this.props.episObj ? this.props.episObj : 'sorry, try again'})
-      e.target[0].value = ''
-      console.log('this.state.arrList', this.state.arrList);
-      console.log('key', key);
-    },50)
   }
 
   render() {

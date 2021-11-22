@@ -11,33 +11,15 @@ import style from './LocationsTable.module.css'
 class LocationsTable extends Component {
   state = {
     page: 1,
-    arrList: []
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      console.log('iv done');
-      this.props.toFetchLocations(this.state.page)
-    
-    }, 500)
-    
-    setTimeout(() => {
-      this.setState({
-        arrList: this.props.locObj
-      })
-      console.log("mounted",this.state.arrList);
-    }, 600) 
+    this.props.toFetchLocations(this.state.page)
 }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.page !== this.state.page) {
       this.props.toFetchLocations(this.state.page)
-      setTimeout(() => {
-        
-        this.setState({
-          arrList: this.props.locObj
-        })
-    }, 50)
     }
   }
 
@@ -68,15 +50,10 @@ class LocationsTable extends Component {
 
   restart = () => {
    this.props.toFetchLocations(this.state.page)
-    setTimeout(() => {
-      this.setState({
-        arrList: this.props.locObj
-      }) 
-    }, 600)
   }
 
   render() {
-    const locArr = this.state.arrList
+    const locArr = this.props.locObj
     return (
       <div className={style.background}>
         <div className={style.filterForm}>
