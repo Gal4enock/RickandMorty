@@ -3,9 +3,6 @@ import { NavLink } from 'react-router-dom';
 
 import style from './Navigation.module.css'
 
-
-//import { Test } from './Navigation.styles';
-
 const Navigation = () => (
   <div className="NavigationWrapper">
     <ul className={style.List}>
@@ -24,7 +21,5 @@ const Navigation = () => (
     </ul>
   </div>
 );
-
-
 
 export default Navigation;
