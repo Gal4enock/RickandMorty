@@ -28,9 +28,8 @@ class CharactersList extends Component {
         this.props.toFilterCharacters(this.state.page, this.state.key, this.state.query) :
         this.props.toFetchCharacters(this.state.page);
     }
-    console.log("state", this.state);
-    
-  }
+  };
+
   restart = () => {
     this.setState({
       page: 1,
@@ -67,9 +66,10 @@ class CharactersList extends Component {
   }
 
   render() {
-    const charArr = this.props.charObj;
+    const charArr = this.props.charObj.results ||  this.props.charObj.error;
+    console.log(typeof charArr);
     return (
-      <div className={ style.background} onClick={this.showDetails}>
+      <div className={style.background} onClick={this.showDetails}>
         <div >
           <div className={style.filterForm}>
             <FilterField name='name' filterList={this.filterByQuery} />
@@ -80,11 +80,17 @@ class CharactersList extends Component {
           {this.state.filtered ?
             <span>  List filtered by {this.state.key} = {this.state.query} </span> : ''}
         </div>
-        <p className={style.currentPage}>your page is #{this.state.page }</p>
-        <ul className={style.list}>{charArr && charArr.length > 0 ? charArr.map(char => <li key={char.id}><Card obj={char} /></li>) : 'please wait or try again'}</ul>
-        <SliderBurrons goPrevious={this.goPrevious} goNext={this.goNext} page={this.state.page}/>
+        <p className={style.currentPage}>your page is #{this.state.page}</p>
+        { this.props.charObj.results ?
+          <ul className={style.list}>
+          {charArr && charArr.length > 0 ?
+            charArr.map(char => <li key={char.id}><Card obj={char} /></li>) :
+            'please wait or try again'}
+          </ul> :
+          <p className={style.errorText}>Sorry, but {charArr} according to your request</p>}
+        <SliderBurrons goPrevious={this.goPrevious} goNext={this.goNext} page={this.state.page} />
       </div>
-    )
+    );
   }
 }
 

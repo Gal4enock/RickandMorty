@@ -31,3 +31,12 @@ justify-content: space-around;
 .filterForm {
   display: flex;
 }
+
+.errorText {
+  width: 500px;
+  margin: 0 auto;
+  text-align: center;
+  color: red;
+  font-weight: bold;
+  font-size: 20px;
+}

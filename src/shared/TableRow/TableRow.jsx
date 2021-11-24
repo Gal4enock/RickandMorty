@@ -1,7 +1,6 @@
 import style from './TableRow.module.css';
 
 const TableRow = ({ obj }) => {
-  console.log(obj);
   return (
     <tr key={obj.id}>
       <td  className={style.row}>{ obj.name}</td>

@@ -8,31 +8,23 @@ const fetchCharacters = (page) => (dispatch) => {
   dispatch(actions.fetchCharactersRequest());
   axios
     .get(`/character?page=${page}`)
-    .then(result => dispatch(actions.fetchCharactersSuccess(result.data.results)))
-    // .then(resp => {
-    //  
-    //  return resp.json
-    // })
+    .then(result => dispatch(actions.fetchCharactersSuccess(result.data)))
     .catch(err => dispatch(actions.fetchCharactersError(err)))
 }
 
 const filterCharacters = (page, key, query) => (dispatch) => {
-  console.log('oper', query);
   dispatch(actions.filterCharactersRequest());
   fetch(URL + `/character/?page=${page}&${key}=${query}`)
     .then(res => res.json())
-    .then(result => {
-      console.log('result', result.results);
-      dispatch(actions.filterCharactersSuccess(result.results))
-    })
+    .then(result => dispatch(actions.filterCharactersSuccess(result)))
     .catch(err => dispatch(actions.filterCharactersError(err)))
-}
+};
 
 const fetchLocations = (page) => (dispatch) => {
   dispatch(actions.fetchLocationsRequest());
   fetch(URL + `/location?page=${page}`)
     .then(resp => {return resp.json()})
-    .then(result => dispatch(actions.fetchLocationsSuccess(result.results)))
+    .then(result => dispatch(actions.fetchLocationsSuccess(result)))
     .catch(err => dispatch(actions.fetchLocationsError(err)))
 }
 
@@ -41,8 +33,7 @@ const filterLocations = (key, query) => (dispatch) => {
   fetch(URL + `/location/?${key}=${query}`)
     .then(res => res.json())
     .then(result => {
-      console.log('result epis', result.results);
-      dispatch(actions.filterLocationsSuccess(result.results))
+      dispatch(actions.filterLocationsSuccess(result))
     })
     .catch(err => dispatch(actions.filterLocationsError(err)))
 }
@@ -52,7 +43,6 @@ const fetchEpisodes = (page) => (dispatch) => {
   fetch(URL + `/episode?page=${page}`)
     .then(resp => resp.json())  
     .then(result => {
-      console.log('wtf2', result.results);
       dispatch(actions.fetchEpisodesSuccess(result.results))
     })
     .catch(err => dispatch(actions.fetchEpisodesError(err)))
@@ -63,7 +53,6 @@ const filterEpisodes = (key, query) => (dispatch) => {
   fetch(URL + `/episode/?${key}=${query}`)
     .then(res => res.json())
     .then(result => {
-      console.log('result epis', result.results);
       dispatch(actions.filterEpisodesSuccess(result.results))
     })
     .catch(err => dispatch(actions.filterEpisodesError(err)))

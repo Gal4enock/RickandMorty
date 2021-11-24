@@ -47,18 +47,24 @@ class EpisodesTable extends Component {
     return (
       <div className={style.background}>
         <FilterField name='name' filterList={this.filterByQuery} />
-        <p className={style.currentPage}>your page is #{this.state.page }</p>
+        <p className={style.currentPage}>your page is #{this.state.page}</p>
         <table className={style.table}>
-          <tr  key='9678'>
-            <th key='name' className={style.row}>Name</th>
-            <th key='date' className={style.row}>Air date</th>
-            <th key='episode' className={style.row}>Episode</th>
-          </tr>
-          {episArr && episArr.length > 0 ? episArr.map(epis => <TableRow obj = {epis}/>) : 'please wait or try again'}
+          <thead>
+            <tr key='9678'>
+              <th key='name' className={style.row}>Name</th>
+              <th key='date' className={style.row}>Air date</th>
+              <th key='episode' className={style.row}>Episode</th>
+            </tr>
+          </thead>
+          <tbody>
+            {episArr && episArr.length > 0 ?
+              episArr.map(epis => <TableRow key={epis.name} obj={epis} />) :
+              <tr><td>please wait or try again</td></tr>}
+          </tbody>
         </table>
-        <SliderBurrons goPrevious={this.goPrevious} goNext={this.goNext} page={this.state.page}/>
-        </div>
-    )
+        <SliderBurrons goPrevious={this.goPrevious} goNext={this.goNext} page={this.state.page} />
+      </div>
+    );
   }
 }
 

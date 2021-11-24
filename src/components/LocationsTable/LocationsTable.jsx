@@ -43,8 +43,6 @@ class LocationsTable extends Component {
     setTimeout(() => {
       this.setState({arrList: this.props.locObj ? this.props.locObj : 'sorry, try again'})
       e.target[0].value = ''
-      console.log('this.state.arrList', this.state.arrList);
-      console.log('key', key);
     },50)
   }
 
@@ -53,27 +51,33 @@ class LocationsTable extends Component {
   }
 
   render() {
-    const locArr = this.props.locObj
+    const locArr = this.props.locObj.results || this.props.locObj.error
     return (
       <div className={style.background}>
         <div className={style.filterForm}>
-            <FilterField name='name' filterList={this.filterByQuery} />
-            <FilterField name='type' filterList={this.filterByQuery} />
-            <FilterField name='dimension' filterList={this.filterByQuery} />
+          <FilterField name='name' filterList={this.filterByQuery} />
+          <FilterField name='type' filterList={this.filterByQuery} />
+          <FilterField name='dimension' filterList={this.filterByQuery} />
         </div>
-        <Button onClick = {this.restart}  variant="contained">Clear Filters</Button>
-        <p className={style.currentPage}>your page is #{this.state.page }</p>
-        <table className={style.table}>
-          <tr  key='9678'>
-            <th key='name' className={style.row}>Name</th>
-            <th key='type' className={style.row}>Type</th>
-            <th key='dimension' className={style.row}>Dimension</th>
-          </tr>
-          {locArr && locArr.length > 0 ? locArr.map(locate => <TableRow obj = {locate}/>) : 'please wait or try again'}
-        </table>
-        <SliderBurrons goPrevious={this.goPrevious} goNext={this.goNext} page={this.state.page}/>
-        </div>
-    )
+        <Button onClick={this.restart} variant="contained">Clear Filters</Button>
+        <p className={style.currentPage}>your page is #{this.state.page}</p>
+        {this.props.locObj.error ?
+           <p className={style.errorText}>Sorry, but {locArr} according to your request</p> :
+          <table className={style.table}>
+          <thead>
+            <tr key='9678'>
+              <th key='name' className={style.row}>Name</th>
+              <th key='type' className={style.row}>Type</th>
+              <th key='dimension' className={style.row}>Dimension</th>
+            </tr>
+          </thead>
+          <tbody>
+            {locArr && locArr.length > 0 ? locArr.map(locate => <TableRow key={locate.name} obj={locate} />) : <tr><td>please wait or try again</td></tr>}
+          </tbody>
+        </table>}
+        <SliderBurrons goPrevious={this.goPrevious} goNext={this.goNext} page={this.state.page} />
+      </div>
+    );
   }
 }
 
