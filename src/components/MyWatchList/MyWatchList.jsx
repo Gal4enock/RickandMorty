@@ -11,7 +11,7 @@ class MyWatchList extends Component {
 
   state = {
     episodes: [],
-    rememberMe: false,
+    checkbox: false,
     arrList: '',
     rerender: false
   }
@@ -28,11 +28,14 @@ class MyWatchList extends Component {
      const localArr = JSON.parse(localStorage.getItem('watchList'));
      const newArr = localArr.map(el => {
        if (el.name === event.target.name) {
-         el.watched = true;
-       }
-       return el;
+         el.watched = !el.watched;
+        }
+        return el;
+      })
+      localStorage.setItem('watchList', JSON.stringify(newArr));
+     this.setState({
+       [event.target.type]: event.target.value
      })
-     localStorage.setItem('watchList', JSON.stringify(newArr));
   };
 
   handleSubmit = () => {
