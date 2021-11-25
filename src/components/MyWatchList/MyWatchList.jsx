@@ -61,9 +61,14 @@ class MyWatchList extends Component {
     this.props.toFindeToWatch(query)
   }
   
-  handleDelete(e) {
-    console.log('event', e);
-  }
+  handleDelete = (e) => {
+    const localWatchList = JSON.parse(localStorage.getItem('watchList'));
+    const newWatchArr = localWatchList.filter(el => el.name !== e.target.name);
+    localStorage.setItem('watchList', JSON.stringify(newWatchArr));
+    this.setState((prevState) => {
+      return { rerender: !prevState.rerender }
+    });
+  };
   
   render() {
     const watchArr = this.props.watchObj[0];
@@ -72,6 +77,7 @@ class MyWatchList extends Component {
     return (
       <div>
         <FilterField name='episode' filterList={this.filterByQuery} />
+        <h3 className={style.title}>Please, choose an episode for watch later</h3>
         <table className={style.table}>
           <thead>
             <tr>
@@ -102,6 +108,7 @@ class MyWatchList extends Component {
               </tbody>
           }
         </table>
+        <h2 className={style.title}>Episodes to watch later</h2>
         <table className={style.table}>
           <thead>
             <tr>

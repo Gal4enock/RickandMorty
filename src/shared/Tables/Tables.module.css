@@ -9,9 +9,6 @@
     border: 1px solid black;  /* граница всей таблицы */
     border-collapse: collapse;
     margin: 0 auto;
-    width: 800px;
-    text-align: center;
-    margin-bottom: 20px;
     background-color: rgba(248, 248, 228, 0.5);
 }
 
@@ -34,6 +31,15 @@
   text-align: end;
 }
 
-.title {
+.filterForm {
+  display: flex;
+}
+
+.errorText {
+  width: 500px;
+  margin: 0 auto;
   text-align: center;
+  color: red;
+  font-weight: bold;
+  font-size: 20px;
 }

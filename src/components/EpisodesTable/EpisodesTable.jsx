@@ -50,10 +50,10 @@ class EpisodesTable extends Component {
         <p className={style.currentPage}>your page is #{this.state.page}</p>
         <table className={style.table}>
           <thead>
-            <tr key='9678'>
-              <th key='name' className={style.row}>Name</th>
-              <th key='date' className={style.row}>Air date</th>
-              <th key='episode' className={style.row}>Episode</th>
+            <tr>
+              <th className={style.row}>Name</th>
+              <th className={style.row}>Air date</th>
+              <th className={style.row}>Episode</th>
             </tr>
           </thead>
           <tbody>
